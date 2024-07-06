@@ -5,7 +5,7 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 
-#define CONFIG_WAIT_DELAY 1000
+#define CONFIG_WAIT_DELAY 100
 
 #define INPUT_WAIT_TAG "INPUT_WAIT"
 
@@ -49,8 +49,9 @@ extern "C"
         int timeout = timeout_seconds * 1000 / CONFIG_WAIT_DELAY;
         for (int i = 0; i < timeout; i++)
         {
+            // reduced logs
             if (i % 10 == 0)
-                ESP_LOGI(INPUT_WAIT_TAG, "Waiting for button press... (%d/%d)", i, timeout);
+                ESP_LOGI(INPUT_WAIT_TAG, "Waiting for button press... %d", i);
 
             if (gpio_get_level(gpio_num) == 0)
             {
